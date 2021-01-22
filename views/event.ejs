@@ -1,0 +1,18 @@
+<h2>Nome: <%= visit.name %></h2> 
+<h2>Endereço: <%= visit.address %></h2>
+<h2>Motivo: <%= visit.description %></h2> 
+<hr>
+<h3>Data: <%= visit.date %> </h3>
+<h3>Horário: <%= visit.time %></h3>
+<h3>Genero: <%= visit.gender %> </h3>
+<h3>Idade: <%= visit.age %> </h3>
+<h3>Email: <%= visit.email %></h3>
+<h3>CPF: <%= visit.cpf %></h3>
+       
+<hr>
+<% if(!visit.finished){ %>
+    <form action="/finish" method="post">
+       <input type="hidden" name="id" value="<%= visit._id %>">
+       <button>Finalizar visita</button>
+    </form>
+<% } %>    
