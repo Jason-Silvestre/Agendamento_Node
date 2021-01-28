@@ -4,7 +4,7 @@
     <input type="search" name="search" id="search" placeholder="Digite o e-mail ou CPF do membro">
 <button>Pesquisar</button>
 </form>
-
+<hr>
 <% vis.forEach(visit => { %>
 
     <h2>Nome: <%= visit.name %></h2> 
@@ -16,5 +16,6 @@
     <h3>Genero: <%= visit.gender %> </h3>
     <h3>Idade: <%= visit.age %> </h3>
     <h3>Email: <%= visit.email %></h3>
-    <h3>CPF: <%= visit.cpf %></h3>           
+    <h3>CPF: <%= visit.cpf %></h3>  
     <hr>
+    <% }) %>
