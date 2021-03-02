@@ -1,14 +1,15 @@
-var visita = require("../models/Visita");
+var visita = require('../services/Visita');
 var mongoose = require("mongoose");
 var VisitFactory = require("../factories/VisitFactory");
 var nodemailer = require("nodemailer");
+const { finished } = require('nodemailer/lib/xoauth2');
 
 const Visit = mongoose.model("Visita", visita);
 
 class ServicoAgendamento {
 
    async Create(
-    name, address, description, date, time, age, gender, email, cpf) {
+    name, address, description, date, time, age, email) {
         var newVisit = new Visit({                    
         name,
         address,
@@ -16,9 +17,7 @@ class ServicoAgendamento {
         date,
         time,
         age, 
-        gender,
         email,
-        cpf,
         finished: false,
         notified: false
         });
@@ -70,7 +69,7 @@ class ServicoAgendamento {
 
     async Search(query){
        try{
-        var vis = await Visit.find().or([{email: query},{cpf: query}])
+        var vis = await Visit.find().or([{email: query}])
        return vis;
         }catch(err){
             return [];
@@ -90,17 +89,31 @@ class ServicoAgendamento {
           user: "jasonsilvestredev@gmail.com",
           pass: "@jasondev#43"
         }
+    });    
+    
+    //
+    var transporter2 = nodemailer.createTransport({
+           
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false,
+        auth: {
+          user: "jasonsilvestredev@gmail.com",
+          pass: "@jasondev#43"
+        }
     });       
+
+    //
 
        vis.forEach(async app => {
 
         var date = app.start.getTime();
-        var hour = 1000 * 60 *60 * 5;
+        var hour = 1000 * 60 *60 * 24;
         var gap = date-Date.now();
 
         if(gap <= hour) {
             
-            if(!app.notified) {
+            if(!app.notified){
 
           await Visit.findByIdAndUpdate(app.id,{notified: true});
 
@@ -110,14 +123,32 @@ class ServicoAgendamento {
                 to: app.email,
                 subject: "Visita confirmada!",
                 text: "Visita confirmada!"
-            }).then( () => {
+            
+            }).then( () => { 
 
             }).catch(err => {
-
+                
             })
-              
+            }else if(app.finished)
+            {
+                await Visit.findByIdAndUpdate(app.id,{finished: true, notified:true});
+                transporter2.sendMail({
+                    from: "Jason Silvestre <jasonsilvestredev@gmail.com>",
+                    to: app.email,
+                    subject: "Horário Indisponível !",
+                    text: "Não foi possível agendar sua visita,por favor tente novamente !"
+               
+                }).then( () => { 
+
+                }).catch(err => {
+
+                })
+                
+          //
+            }else[
+                //
+            ]
             
-            }
         }
     })
   }

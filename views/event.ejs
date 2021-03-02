@@ -1,18 +1,49 @@
-<h2>Nome: <%= visit.name %></h2> 
-<h2>Endereço: <%= visit.address %></h2>
-<h2>Motivo: <%= visit.description %></h2> 
-<hr>
-<h3>Data: <%= visit.date %> </h3>
-<h3>Horário: <%= visit.time %></h3>
-<h3>Genero: <%= visit.gender %> </h3>
-<h3>Idade: <%= visit.age %> </h3>
-<h3>Email: <%= visit.email %></h3>
-<h3>CPF: <%= visit.cpf %></h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        body{
+            background-color:  ghostwhite;
+        }
+        h1{
+            color: black;
+            padding-top: 3%;
+            padding-left: 1%;
+            font-size: 20px;
+
+        }
+        button{
+            color:  white;
+            background-color:#e80000;
+            margin-top: 40px;
+            text-align: center;
+            margin-left: 30%;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<h1>Nome: <%= visit.name %></h1> 
+<h1>Endereço: <%= visit.address %></h1>
+<h1>Motivo: <%= visit.description %></h1> 
+<h1>Data: <%= visit.date %> </h1>
+<h1>Horário: <%= visit.time %></h1>
+<h1>Idade: <%= visit.age %> </h1>
+<h1>Email: <%= visit.email %></h1>
        
 <hr>
 <% if(!visit.finished){ %>
     <form action="/finish" method="post">
        <input type="hidden" name="id" value="<%= visit._id %>">
-       <button>Finalizar visita</button>
+    <button>Recusar</button>
     </form>
-<% } %>    
+<% } %>  
+
+ 
+</body>
+
+</html>

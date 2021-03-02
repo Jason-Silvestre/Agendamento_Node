@@ -6,6 +6,8 @@
         <title>Sistema</title>
         <link rel="stylesheet" href="main.css">
         <script src="main.js"></script>
+    
+        
     </head>
     <body>
         <div id="calendar"></div>
@@ -15,14 +17,23 @@
 
        var element = document.getElementById("calendar");
        var calendar = new FullCalendar.Calendar(element,{
-           initialView: 'dayGridMonth',
+           height: 6000,           
+           width: 8000,
+           Boolean, default: false,
+           row: 90000,
+           fontSize: 20,
+           initialView: 'listWeek', //utilizar esse porque tem a melhor visualização no celular.
+           //initialView: 'timeGridWeek',
+           //initialView: 'dayGridWeek',           
+           //initialView: 'dayGridMonth',//a primeira que usei calendario padrão
            locale: 'pt-br',
            events: 'getcalendar',
            eventClick: function(info){
-           window.location.href = '/event/'+info.event.id; 
+           window.location.href = '/event/'+info.event.id;
+                   
            }
-       });
-
+   });
+   
        calendar.render();
 
    </script>

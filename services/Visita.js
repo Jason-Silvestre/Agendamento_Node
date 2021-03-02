@@ -7,9 +7,7 @@ description: String,
 date: Date,
 time: String,
 age: Number, 
-gender: String,
 email: String,
-cpf: String,
 finished: Boolean,
 notified: Boolean
 });
